@@ -1,0 +1,76 @@
+{
+  "name": "vscode-resource-workbench",
+  "displayName": "算力工作台",
+  "description": "在 VS Code 中部署远程 Jupyter，管理算力资源和文件，查看用量及费用。",
+  "publisher": "local-workbench",
+  "repository": { "type": "git", "url": "https://github.com/peacezha/GPU_HZAU.git" },
+  "version": "0.2.0",
+  "engines": { "vscode": "^1.115.0" },
+  "categories": ["Other"],
+  "main": "./extension.js",
+  "extensionKind": ["ui"],
+  "extensionPack": ["ms-toolsai.jupyter"],
+  "capabilities": {
+    "untrustedWorkspaces": { "supported": true },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        { "id": "resourceWorkbench", "title": "算力工作台", "icon": "media/activity.svg" }
+      ]
+    },
+    "views": {
+      "resourceWorkbench": [
+        { "id": "resourceWorkbench.resources", "name": "开发环境" }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "resourceWorkbench.resources",
+        "contents": "登录后可查看算力资源。插件会自动启动内置服务。\n[登录算力平台](command:resourceWorkbench.login)\n[打开浏览器版工作台](command:resourceWorkbench.portal)",
+        "when": "!resourceWorkbench.authenticated"
+      }
+    ],
+    "commands": [
+      { "command": "resourceWorkbench.login", "title": "登录算力平台", "category": "算力工作台", "icon": "$(sign-in)" },
+      { "command": "resourceWorkbench.logout", "title": "退出算力平台", "category": "算力工作台", "icon": "$(sign-out)" },
+      { "command": "resourceWorkbench.refresh", "title": "刷新资源", "category": "算力工作台", "icon": "$(refresh)" },
+      { "command": "resourceWorkbench.details", "title": "查看资源详情", "category": "算力工作台" },
+      { "command": "resourceWorkbench.billing", "title": "查看用量和费用", "category": "算力工作台" },
+      { "command": "resourceWorkbench.diagnostics", "title": "查看资源诊断", "category": "算力工作台" },
+      { "command": "resourceWorkbench.start", "title": "启动资源", "category": "算力工作台" },
+      { "command": "resourceWorkbench.stop", "title": "关闭资源", "category": "算力工作台" },
+      { "command": "resourceWorkbench.files", "title": "浏览和传输文件", "category": "算力工作台" },
+      { "command": "resourceWorkbench.web", "title": "打开网页开发环境", "category": "算力工作台" },
+      { "command": "resourceWorkbench.jupyter", "title": "部署并连接 Jupyter", "category": "算力工作台" },
+      { "command": "resourceWorkbench.disconnectJupyter", "title": "断开本机 Jupyter 连接", "category": "算力工作台" },
+      { "command": "resourceWorkbench.setupTunnel", "title": "设置桌面隧道", "category": "算力工作台" },
+      { "command": "resourceWorkbench.tunnel", "title": "连接手动启动的桌面隧道", "category": "算力工作台" },
+      { "command": "resourceWorkbench.portal", "title": "打开本机工作台", "category": "算力工作台" },
+      { "command": "resourceWorkbench.aiSettings", "title": "设置 AI 模型", "category": "算力工作台" },
+      { "command": "resourceWorkbench.chat", "title": "打开 AI 助手", "category": "算力工作台", "icon": "$(comment-discussion)" }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "resourceWorkbench.login", "when": "view == resourceWorkbench.resources && !resourceWorkbench.authenticated", "group": "navigation@1" },
+        { "command": "resourceWorkbench.refresh", "when": "view == resourceWorkbench.resources && resourceWorkbench.authenticated", "group": "navigation@1" },
+        { "command": "resourceWorkbench.chat", "when": "view == resourceWorkbench.resources && resourceWorkbench.authenticated", "group": "navigation@2" },
+        { "command": "resourceWorkbench.logout", "when": "view == resourceWorkbench.resources && resourceWorkbench.authenticated", "group": "session@1" },
+        { "command": "resourceWorkbench.aiSettings", "when": "view == resourceWorkbench.resources && resourceWorkbench.authenticated", "group": "session@2" },
+        { "command": "resourceWorkbench.portal", "when": "view == resourceWorkbench.resources", "group": "session@3" }
+      ],
+      "view/item/context": [
+        { "command": "resourceWorkbench.details", "when": "view == resourceWorkbench.resources && viewItem =~ /^resource\\./", "group": "resource@1" },
+        { "command": "resourceWorkbench.billing", "when": "view == resourceWorkbench.resources && viewItem =~ /^resource\\./", "group": "resource@2" },
+        { "command": "resourceWorkbench.start", "when": "view == resourceWorkbench.resources && viewItem == resource.startable", "group": "resource@2" },
+        { "command": "resourceWorkbench.stop", "when": "view == resourceWorkbench.resources && viewItem =~ /^resource\\.(running|stoppable)$/", "group": "resource@2" },
+        { "command": "resourceWorkbench.files", "when": "view == resourceWorkbench.resources && viewItem =~ /^resource\\./", "group": "resource@3" },
+        { "command": "resourceWorkbench.diagnostics", "when": "view == resourceWorkbench.resources && viewItem =~ /^resource\\./", "group": "resource@4" },
+        { "command": "resourceWorkbench.jupyter", "when": "view == resourceWorkbench.resources && viewItem == resource.running", "group": "resource@5" },
+        { "command": "resourceWorkbench.setupTunnel", "when": "view == resourceWorkbench.resources && viewItem == resource.running", "group": "resource@6" },
+        { "command": "resourceWorkbench.disconnectJupyter", "when": "view == resourceWorkbench.resources && viewItem == resource.running", "group": "resource@7" }
+      ]
+    }
+  }
+}

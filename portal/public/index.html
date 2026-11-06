@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#112b3a">
+  <meta name="description" content="连接你的算力资源、数据与 AI 编程助手。">
+  <title>算力工作台 · Compute Workspace</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div id="boot" class="boot"><span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i><i></i></span><p>正在连接工作台<span class="loading-dots">…</span></p></div>
+
+  <section id="login-screen" class="login-screen hidden" aria-label="登录算力工作台">
+    <div class="login-story">
+      <a class="brand login-brand" href="/" aria-label="算力工作台首页"><span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>算力工作台<small>COMPUTE WORKSPACE</small></span></a>
+      <div class="login-story-copy"><span class="eyebrow light"><span class="tiny-dot"></span> YOUR RESEARCH, CONNECTED</span><h1>让算力，<br>回归你的创造力。</h1><p>从数据到代码，从实验到发现。<br>一个安静、专注的科研工作空间。</p></div>
+      <div class="compute-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="art-line line-a"></div><div class="art-line line-b"></div><div class="art-node node-a"></div><div class="art-node node-b"></div><div class="art-node node-c"></div><div class="chip"><div class="chip-inner"><span>COMPUTE</span><div class="chip-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><small>IDEAS → DISCOVERY</small></div></div><span class="art-caption">A SPACE FOR WHAT’S NEXT</span></div>
+      <div class="login-story-footer"><span>私有资源 · 统一入口</span><span class="version">WORKSPACE / 01</span></div>
+    </div>
+    <div class="login-form-side">
+      <div class="login-form-wrap"><div class="login-heading-icon" data-icon="layers"></div><span class="eyebrow">WELCOME BACK</span><h2>连接你的工作空间</h2><p class="login-subtitle">使用算力平台账户登录，继续你的研究。</p>
+        <form id="login-form" novalidate>
+          <label for="username">平台用户名</label><div class="input-with-icon"><span data-icon="user"></span><input id="username" name="username" autocomplete="username" placeholder="请输入用户名" required maxlength="200"></div>
+          <label for="password">密码</label><div class="input-with-icon"><span data-icon="lock"></span><input id="password" name="password" type="password" autocomplete="current-password" placeholder="请输入账户密码" required><button id="toggle-password" class="icon-button password-eye" type="button" aria-label="显示密码" data-icon="eye"></button></div>
+          <label for="captcha-code">图形验证码</label><div class="captcha-row"><div class="input-with-icon"><span data-icon="shield"></span><input id="captcha-code" name="captchaCode" placeholder="请输入四位验证码" autocomplete="off" required maxlength="8" spellcheck="false"></div><button id="refresh-captcha" class="captcha-image-button" type="button" title="点击刷新验证码" aria-label="刷新验证码"><img id="captcha-image" class="hidden" alt="平台图形验证码"><span id="captcha-loading" class="captcha-loading">正在加载…</span><span class="captcha-refresh-icon" data-icon="refresh"></span></button></div><div id="captcha-error" class="captcha-error hidden" role="status"></div>
+          <div id="login-error" class="form-error hidden" role="alert"></div>
+          <button id="login-submit" class="button primary login-submit" type="submit"><span>登录工作台</span><span data-icon="arrow-right"></span></button>
+        </form>
+        <div class="login-note"><span data-icon="shield"></span><p>通过本地服务连接原平台。账户密码仅用于本次登录，不写入工作台存储。</p></div>
+      </div>
+      <div class="login-footer"><span>COMPUTE WORKSPACE</span><span>为专注而设计</span></div>
+    </div>
+  </section>
+
+  <div id="app-shell" class="app-shell hidden">
+    <div id="sidebar-scrim" class="sidebar-scrim hidden"></div>
+    <aside id="sidebar" class="sidebar">
+      <a class="brand" href="#overview"><span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>算力工作台<small>COMPUTE WORKSPACE</small></span></a>
+      <div class="sidebar-section-label">工作空间 <span>WORKSPACE</span></div>
+      <nav class="main-nav" aria-label="主导航">
+        <a href="#overview" data-view="overview" class="nav-link active"><span data-icon="grid"></span><span>资源总览</span><i></i></a>
+        <a href="#workspace" data-view="workspace" class="nav-link"><span data-icon="terminal"></span><span>在线工作区</span><i></i></a>
+        <a href="#files" data-view="files" class="nav-link"><span data-icon="folder"></span><span>数据与文件</span><i></i></a>
+        <a href="#assistant" data-view="assistant" class="nav-link"><span data-icon="sparkles"></span><span>AI 编程助手</span><span class="nav-new">AI</span><i></i></a>
+      </nav>
+      <div class="sidebar-bottom"><div class="connection-note"><span class="connection-dot"></span><div>本地安全连接<small>你的私人算力入口</small></div><span data-icon="shield"></span></div><div class="sidebar-user"><span id="user-avatar" class="avatar">U</span><div class="user-copy"><strong id="sidebar-username">工作台用户</strong><span>个人工作空间</span></div><button id="logout" class="icon-button" aria-label="退出登录" title="退出登录" data-icon="logout"></button></div></div>
+    </aside>
+
+    <div class="main-shell">
+      <header class="topbar"><div class="topbar-left"><button id="menu-toggle" class="icon-button mobile-only" aria-label="打开导航" data-icon="menu"></button><span class="breadcrumb-root">工作空间</span><span class="breadcrumb-slash">/</span><span id="breadcrumb-current">资源总览</span></div><div class="topbar-right"><span class="private-badge"><span data-icon="lock"></span> 私有工作台</span><span class="topbar-divider"></span><span id="topbar-date" class="topbar-date"></span><button id="ai-settings-shortcut" class="icon-button" aria-label="AI 连接设置" title="AI 连接设置" data-icon="settings"></button></div></header>
+      <main id="main-content" class="main-content">
+        <div id="session-warnings" class="session-warnings hidden" role="status"></div>
+
+        <section id="view-overview" class="view" aria-labelledby="overview-title">
+          <div class="page-heading"><div><div class="eyebrow"><span class="tiny-dot"></span> YOUR COMPUTE, AT A GLANCE</div><h1 id="overview-title">资源总览<span class="heading-dot">.</span></h1><p>连接算力与灵感，开始今天的探索。</p></div><button id="refresh-resources" class="button secondary" type="button"><span data-icon="refresh"></span>刷新资源</button></div>
+          <div id="quota-cards" class="quota-grid" aria-label="资源配额"></div>
+          <div class="overview-grid"><div class="resources-column"><section class="panel resource-panel"><div class="panel-heading"><div class="section-title"><span class="section-marker"></span><h2>我的算力资源</h2><span id="resource-count" class="count-badge">—</span></div><div class="list-controls"><label class="resource-search"><span data-icon="search"></span><input id="resource-search" type="search" placeholder="搜索资源" aria-label="搜索资源"></label><button id="resource-view-toggle" class="icon-button" type="button" aria-label="切换资源显示方式" title="切换资源显示方式" data-icon="layout"></button></div></div><div id="resource-list" class="resource-list"></div><div class="panel-footer"><span><span class="tiny-dot"></span> 资源信息来自原平台</span><span id="resources-updated">尚未同步</span></div></section><div class="quick-actions"><button class="quick-action" data-open-view="files"><span class="quick-action-icon" data-icon="upload"></span><div><strong>准备实验数据</strong><span>上传文件，整理工作目录</span></div><span class="quick-arrow" data-icon="arrow-up-right"></span></button><button class="quick-action" data-open-view="assistant"><span class="quick-action-icon violet" data-icon="sparkles"></span><div><strong>与 AI 一起编程</strong><span>梳理思路，让代码更进一步</span></div><span class="quick-arrow" data-icon="arrow-up-right"></span></button></div></div>
+          <aside class="resource-details panel"><div class="panel-heading"><div class="section-title"><span data-icon="sliders"></span><h2>资源详情</h2></div><span class="muted-icon" data-icon="more"></span></div><div id="resource-detail-content"></div></aside></div>
+          <div class="workspace-footnote"><span class="mini-brand" aria-hidden="true">⌘</span><span>保持专注，让每一次计算都有意义。</span><span>COMPUTE WORKSPACE</span></div>
+        </section>
+
+        <section id="view-workspace" class="view hidden" aria-labelledby="workspace-title"><div class="page-heading"><div><div class="eyebrow"><span class="tiny-dot"></span> FROM RESOURCES TO RESULTS</div><h1 id="workspace-title">在线工作区<span class="heading-dot">.</span></h1><p>使用本机 VS Code，或在独立页面中打开 AI 开发环境。</p></div><div class="page-context"><span>当前资源</span><select id="workspace-resource" class="resource-select" aria-label="选择工作区资源"></select></div></div><div id="workspace-content" class="workspace-content panel"></div></section>
+
+        <section id="view-files" class="view hidden" aria-labelledby="files-title"><div class="page-heading"><div><div class="eyebrow"><span class="tiny-dot"></span> MAKE ROOM FOR DISCOVERY</div><h1 id="files-title">数据与文件<span class="heading-dot">.</span></h1><p>整理输入，保存成果。让实验数据各就其位。</p></div><div class="page-context"><span>当前资源</span><select id="files-resource" class="resource-select" aria-label="选择文件资源"></select></div></div><section id="file-manager" class="panel file-manager"><div class="file-toolbar"><form id="file-path-form" class="file-path-form"><span data-icon="folder"></span><input id="file-path-input" aria-label="当前目录路径" value="/mnt/data" autocomplete="off" spellcheck="false"><button class="icon-button" type="submit" title="前往目录" aria-label="前往目录" data-icon="arrow-right"></button></form><div class="file-actions"><button id="refresh-files" class="icon-button" aria-label="刷新文件列表" title="刷新文件列表" data-icon="refresh"></button><button id="new-folder" class="button secondary" type="button"><span data-icon="folder-plus"></span>新建文件夹</button><button id="upload-button" class="button primary" type="button"><span data-icon="upload"></span>上传文件</button><input id="upload-input" type="file" multiple hidden></div></div><div id="file-breadcrumbs" class="file-breadcrumbs"></div><div id="upload-progress" class="upload-progress hidden" role="status"></div><div id="files-content"></div><div class="file-manager-footer"><span id="file-summary">等待连接资源</span><span>拖放文件到此处即可上传</span></div><div id="drop-overlay" class="drop-overlay hidden"><span data-icon="upload"></span><h3>松开以上传到当前目录</h3><p id="drop-path">/mnt/data</p></div></section></section>
+
+        <section id="view-assistant" class="view assistant-view hidden" aria-labelledby="assistant-title"><div class="page-heading"><div><div class="eyebrow"><span class="tiny-dot"></span> THINK. CODE. EXPLORE.</div><h1 id="assistant-title">AI 编程助手<span class="heading-dot">.</span></h1><p>为你的研究，打开另一种思路。</p></div><button id="open-ai-settings" class="button secondary" type="button"><span data-icon="sliders"></span>模型设置</button></div><div class="assistant-layout"><section class="panel chat-panel"><div class="chat-topbar"><div><span class="ai-orb small" data-icon="sparkles"></span><strong>研究伙伴</strong><span id="chat-model-label" class="model-label">尚未连接模型</span></div><button id="clear-chat" class="icon-button" aria-label="清空当前对话" title="清空当前对话" data-icon="rotate"></button></div><div id="chat-messages" class="chat-messages" aria-live="polite"></div><div class="chat-composer-wrap"><div id="chat-error" class="form-error hidden" role="alert"></div><form id="chat-form" class="chat-composer"><textarea id="chat-input" rows="2" placeholder="描述你的问题，或粘贴一段代码…" aria-label="发送给 AI 的消息" required maxlength="30000"></textarea><div class="composer-bottom"><span class="chat-resource-label"><span data-icon="code"></span>代码建议与问题排查</span><button id="chat-submit" class="send-button" aria-label="发送消息" type="submit" data-icon="arrow-up"></button></div></form><div class="composer-note"><span>Enter 发送 · Shift + Enter 换行</span><span>输出供参考，请检查后使用</span></div></div></section><aside class="assistant-aside"><div class="assistant-aside-icon" data-icon="sparkles"></div><span class="eyebrow">A THOUGHT PARTNER</span><h3>把时间留给<br>值得探索的问题。</h3><p>从环境配置到数据处理，让助手帮你理清思路、编写脚本和定位问题。</p><div class="assistant-tip"><span data-icon="lightbulb"></span><div><strong>给一点背景，答案更具体</strong><p>告诉助手你的目标、报错信息和运行环境。</p></div></div><div class="assistant-connection"><span class="connection-dot"></span><span id="ai-connection-description">配置兼容 OpenAI 的模型服务</span></div><button id="aside-ai-settings" class="text-button">管理模型连接 <span data-icon="arrow-right"></span></button></aside></div></section>
+      </main>
+    </div>
+  </div>
+
+  <dialog id="vscode-guide-dialog" class="modal vscode-guide-modal" aria-labelledby="vscode-guide-title">
+    <div class="modal-heading"><div class="modal-icon" data-icon="terminal"></div><button type="button" class="icon-button" data-close-dialog="vscode-guide-dialog" aria-label="关闭连接指南" data-icon="close"></button></div>
+    <div class="eyebrow">LOCAL EDITOR, REMOTE COMPUTE</div><h2 id="vscode-guide-title">连接本机 VS Code</h2><p class="modal-description">按 Microsoft Remote Tunnels 的官方流程连接远端算力。</p>
+    <div class="guide-connection-state"><span data-icon="info"></span><div><strong>连接状态尚待确认</strong><p id="vscode-guide-resource">先完成扩展安装与远端隧道授权，再从本机编辑器连接。</p></div></div>
+    <ol class="vscode-guide-steps">
+      <li><span class="guide-step-number">01</span><div><h3>在本机安装 Remote - Tunnels</h3><p>在 VS Code 扩展中搜索 Microsoft 发布的 Remote - Tunnels，或在本机终端执行下方命令。</p><div class="guide-copy-line"><code>code --install-extension ms-vscode.remote-server</code><button id="copy-vscode-extension-command" class="icon-button" type="button" aria-label="复制本机扩展安装命令" title="复制命令" data-icon="copy"></button></div><a class="guide-external-link" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-server" target="_blank" rel="noopener noreferrer">查看官方扩展 <span data-icon="external"></span></a></div></li>
+      <li><span class="guide-step-number">02</span><div><h3>完成远端隧道授权</h3><p>远端隧道启用时，需要登录 GitHub 或 Microsoft 账号。本机 VS Code 请使用同一个账号。</p><div class="guide-tunnel-name"><span>计划隧道名称</span><code>wuhan-a800</code><button id="copy-tunnel-name" class="icon-button" type="button" aria-label="复制计划隧道名称" title="复制名称" data-icon="copy"></button></div><p class="guide-step-note">当前页面不表示隧道已经启用。先完成远端准备，再进行下一步。</p></div></li>
+      <li><span class="guide-step-number">03</span><div><h3>在本机选择隧道</h3><p>按 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> 打开命令面板，运行：</p><div class="guide-command-name">Remote Tunnels: Connect to Tunnel</div><p>登录与远端相同的账号，选择 <code>wuhan-a800</code>。若名称未出现，请检查远端是否完成授权，以及两端账号是否一致。</p></div></li>
+      <li><span class="guide-step-number">04</span><div><h3>打开远端项目，开始工作</h3><p>连接成功后，VS Code 左下角会显示远端主机名称。通过「文件 → 打开文件夹」选择远端项目目录，再使用终端、调试和扩展。</p></div></li>
+    </ol>
+    <div class="guide-footer"><a class="text-button" href="https://code.visualstudio.com/docs/remote/tunnels" target="_blank" rel="noopener noreferrer">Microsoft 官方连接指南 <span data-icon="external"></span></a><button class="button primary" type="button" data-close-dialog="vscode-guide-dialog">知道了</button></div>
+  </dialog>
+  <dialog id="folder-dialog" class="modal"><form id="folder-form"><div class="modal-heading"><div class="modal-icon" data-icon="folder-plus"></div><button type="button" class="icon-button" data-close-dialog="folder-dialog" aria-label="关闭" data-icon="close"></button></div><h2>新建文件夹</h2><p id="folder-parent-label" class="modal-description"></p><label for="folder-name">文件夹名称</label><input id="folder-name" class="text-input" placeholder="例如 datasets" required maxlength="255" autocomplete="off"><div id="folder-error" class="form-error hidden" role="alert"></div><div class="modal-actions"><button class="button secondary" type="button" data-close-dialog="folder-dialog">取消</button><button id="folder-submit" class="button primary" type="submit">创建文件夹</button></div></form></dialog>
+  <dialog id="ai-settings-dialog" class="modal ai-settings-modal"><form id="ai-settings-form"><div class="modal-heading"><div class="modal-icon violet" data-icon="sparkles"></div><button type="button" class="icon-button" data-close-dialog="ai-settings-dialog" aria-label="关闭" data-icon="close"></button></div><div class="eyebrow">YOUR MODEL, YOUR CHOICE</div><h2>连接 AI 模型</h2><p class="modal-description">填写兼容 OpenAI API 的服务地址，使用你选择的模型。</p><label for="ai-base-url">API 服务地址</label><input id="ai-base-url" class="text-input" type="url" placeholder="https://api.example.com/v1" required autocomplete="off" spellcheck="false"><label for="ai-model">模型名称</label><input id="ai-model" class="text-input" placeholder="输入服务支持的模型名称" required autocomplete="off" spellcheck="false"><label for="ai-api-key">API Key <span id="api-key-state" class="label-hint">可按服务要求填写</span></label><input id="ai-api-key" class="text-input" type="password" placeholder="输入 API Key" autocomplete="new-password" spellcheck="false"><div class="settings-security"><span data-icon="shield"></span><p>密钥仅保存在本地服务内存中，不写入浏览器存储。重启服务后需重新填写。</p></div><div id="ai-settings-error" class="form-error hidden" role="alert"></div><div class="modal-actions"><button class="button secondary" type="button" data-close-dialog="ai-settings-dialog">取消</button><button id="ai-settings-submit" class="button primary" type="submit">保存连接</button></div></form></dialog>
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+</body>
+</html>
