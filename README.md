@@ -4,6 +4,8 @@
 
 **[下载 Windows 实测版 v0.2.0](https://github.com/peacezha/GPU_HZAU/raw/refs/heads/main/downloads/gpu-hzau-v0.2.0.vsix)** · [SHA-256 校验值](downloads/SHA256SUMS.txt) · [构建与测试](docs/development.md)
 
+如果直链打不开，可[下载 v0.2.0 ZIP](https://github.com/peacezha/GPU_HZAU/archive/refs/tags/v0.2.0.zip)。解压后，安装 `downloads/gpu-hzau-v0.2.0.vsix`。
+
 | 在哪儿 | 放什么 |
 | --- | --- |
 | 本机 VS Code | `.ipynb`、代码编辑、运行结果 |
